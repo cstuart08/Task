@@ -38,8 +38,14 @@
                                                     <rect key="frame" x="336.5" y="0.0" width="47.5" height="47.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="oeV-Yp-SC2" secondAttribute="height" multiplier="1:1" id="5HU-Hl-b0k"/>
+                                                        <constraint firstAttribute="width" constant="47.5" id="FA2-0X-hPk"/>
+                                                        <constraint firstAttribute="height" constant="47.5" id="gCe-MB-daz"/>
                                                     </constraints>
+                                                    <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
                                                     <state key="normal" image="incomplete"/>
+                                                    <connections>
+                                                        <action selector="completeButtonTapped:" destination="T0q-bO-tYd" eventType="touchUpInside" id="Blh-YO-b3y"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </stackView>
@@ -52,6 +58,8 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="completeButton" destination="oeV-Yp-SC2" id="iOy-Mo-hWF"/>
+                                    <outlet property="primaryLabel" destination="72C-70-Dmq" id="mQ6-R6-cQa"/>
                                     <segue destination="YZ7-S0-WHd" kind="show" identifier="TaskToDetail" id="aBJ-e7-WAq"/>
                                 </connections>
                             </tableViewCell>

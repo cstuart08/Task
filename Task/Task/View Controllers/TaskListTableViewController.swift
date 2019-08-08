@@ -26,11 +26,25 @@ class TaskListTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TaskListCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TaskListCell", for: indexPath) as? ButtonTableViewCell else { return UITableViewCell() }
+        
         let task = TaskController.sharedInstance.tasks[indexPath.row]
 
-        cell.textLabel?.text = task.name
+        cell.primaryLabel.text = task.name
+        cell.task = task
+        cell.delegate = self
+        
         return cell
+    }
+    
+    func updateButton(cell: ButtonTableViewCell) {
+        guard let task = cell.task else { return }
+        TaskController.sharedInstance.toggleIsCompleteFor(task: task)
+        if task.isComplete == true {
+            cell.completeButton.setImage(#imageLiteral(resourceName: "complete"), for: .normal)
+        } else {
+            cell.completeButton.setImage(#imageLiteral(resourceName: "incomplete"), for: .normal)
+        }
     }
 
     // Override to support editing the table view.
@@ -52,5 +66,11 @@ class TaskListTableViewController: UITableViewController {
             let task = TaskController.sharedInstance.tasks[indexPath.row]
             destinationVC.task = task
         }
+    }
+}
+
+extension TaskListTableViewController: TaskTableViewCellDelegate {
+    func completedButtonChangedStatus(cell: ButtonTableViewCell) {
+        updateButton(cell: cell)
     }
 }

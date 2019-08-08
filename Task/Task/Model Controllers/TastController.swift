@@ -38,6 +38,11 @@ class TaskController {
         saveToPersistentStore()
     }
     
+    func toggleIsCompleteFor(task: Task) {
+        task.isComplete.toggle()
+        saveToPersistentStore()
+    }
+    
     // Delete
     func remove(task: Task) {
         CoreDataStack.context.delete(task)
