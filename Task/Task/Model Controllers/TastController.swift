@@ -11,20 +11,11 @@ import CoreData
 
 class TaskController {
     
-    var sharedInstance = TaskController()
+    static let sharedInstance = TaskController()
     
-    var tasks = [Task]()
-    
-    init() {
-        tasks = fetchTasks()
-    }
-    
-    let mockTasks: [Task] = [
-        Task(name: "Garbage", notes: "Take out Garbage", due: Date()),
-        Task(name: "Clean", notes: "Clean the house", due: Date()),
-        Task(name: "Workout", notes: "Go to the gym", due: Date(), isComplete: true)
-    ]
-    
+    var tasks: [Task] {
+        return fetchTasks()
+    }    
     
     //MARK: - CRUD
     
@@ -67,7 +58,7 @@ class TaskController {
         let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
         do {
             let fetchedTasks = try CoreDataStack.context.fetch(fetchRequest)
-            return mockTasks
+            return fetchedTasks
         } catch {
             print("Error")
             return []
