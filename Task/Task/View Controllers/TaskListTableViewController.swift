@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TaskListTableViewController: UITableViewController {
+class TaskListTableViewController: UITableViewController, UISearchBarDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +55,21 @@ class TaskListTableViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
 //            tableView.reloadData()
         }
+    }
+    
+    // MARK: - UISearchBarDelegate
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard !searchText.isEmpty else {
+            TaskController.sharedInstance.predicate = nil
+            tableView.reloadData()
+            return
+        }
+        let namePredicate = NSPredicate(format: "name contains[cd] %@", argumentArray: [searchText])
+        let notesPredicate = NSPredicate(format: "notes contains[cd] %@", argumentArray: [searchText])
+        let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [namePredicate, notesPredicate])
+        TaskController.sharedInstance.predicate = predicate
+        tableView.reloadData()
     }
 
     // MARK: - Navigation

@@ -15,7 +15,9 @@ class TaskController {
     
     var tasks: [Task] {
         return fetchTasks()
-    }    
+    }
+    
+    var predicate: NSPredicate?
     
     //MARK: - CRUD
     
@@ -61,6 +63,7 @@ class TaskController {
     // Fetch
     func fetchTasks() -> [Task] {
         let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
+        fetchRequest.predicate = predicate
         do {
             let fetchedTasks = try CoreDataStack.context.fetch(fetchRequest)
             return fetchedTasks
