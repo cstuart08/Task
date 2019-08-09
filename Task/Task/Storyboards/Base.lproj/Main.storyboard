@@ -153,15 +153,15 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Notes:" id="2Sg-rH-7jS">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="524" id="gVf-OG-Z7q">
-                                        <rect key="frame" x="0.0" y="267.5" width="414" height="524"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="507" id="gVf-OG-Z7q">
+                                        <rect key="frame" x="0.0" y="267.5" width="414" height="507"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gVf-OG-Z7q" id="CLa-N9-vgW">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="523.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="506.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Enter Notes Here..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="sRh-2R-50w">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="523.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="506.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -198,6 +198,7 @@
                     <connections>
                         <outlet property="dueDatePicker" destination="5og-zX-pym" id="sjr-oh-M3L"/>
                         <outlet property="notesTextView" destination="sRh-2R-50w" id="FAI-Dl-dFM"/>
+                        <outlet property="tapGesture" destination="teh-sI-9w2" id="06g-gU-crE"/>
                         <outlet property="taskDueDateTextField" destination="uIU-yE-lte" id="GDU-GM-6Lw"/>
                         <outlet property="taskNameTextField" destination="bOr-lZ-0WC" id="2wC-V9-HQT"/>
                     </connections>
@@ -206,6 +207,7 @@
                 <tapGestureRecognizer id="teh-sI-9w2">
                     <connections>
                         <action selector="userTappedView:" destination="YZ7-S0-WHd" id="j1n-8A-LSR"/>
+                        <outlet property="delegate" destination="kcE-GN-UUi" id="fCO-Ax-yKt"/>
                     </connections>
                 </tapGestureRecognizer>
                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" id="5og-zX-pym">

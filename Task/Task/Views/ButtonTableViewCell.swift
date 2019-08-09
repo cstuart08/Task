@@ -9,7 +9,7 @@
 import UIKit
 
 protocol TaskTableViewCellDelegate: class {
-    func completedButtonChangedStatus(cell: ButtonTableViewCell)
+    func completedButtonChangedStatus(_ sender: ButtonTableViewCell)
 }
 
 class ButtonTableViewCell: UITableViewCell {
@@ -25,7 +25,7 @@ class ButtonTableViewCell: UITableViewCell {
     @IBOutlet weak var completeButton: UIButton!
 
     @IBAction func completeButtonTapped(_ sender: Any) {
-        delegate?.completedButtonChangedStatus(cell: self)
+        delegate?.completedButtonChangedStatus(self)
     }
     
     func updateViews() {
@@ -37,3 +37,9 @@ class ButtonTableViewCell: UITableViewCell {
         }
     }
 }
+
+extension ButtonTableViewCell {
+        func update(withTask task: Task) {
+            primaryLabel.text = task.name
+        }
+    }

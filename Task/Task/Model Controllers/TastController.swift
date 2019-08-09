@@ -12,9 +12,19 @@ import CoreData
 class TaskController {
     
     static let sharedInstance = TaskController()
-    
-    var tasks: [Task] {
-        return fetchTasks()
+    var fetchedResultsController: NSFetchedResultsController<Task>
+
+    init () {
+        let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "isComplete", ascending: false), NSSortDescriptor(key: "due", ascending: true)]
+        
+        let resultsController: NSFetchedResultsController<Task> = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.context, sectionNameKeyPath: "Complete", cacheName: nil)
+        fetchedResultsController = resultsController
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print("There was an error performing the fetch!!!")
+        }
     }
     
     var predicate: NSPredicate?
@@ -60,16 +70,16 @@ class TaskController {
         }
     }
     
-    // Fetch
-    func fetchTasks() -> [Task] {
-        let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
-        fetchRequest.predicate = predicate
-        do {
-            let fetchedTasks = try CoreDataStack.context.fetch(fetchRequest)
-            return fetchedTasks
-        } catch {
-            print("Error")
-            return []
-        }
-    }
+//    // Fetch
+//    func fetchTasks() -> [Task] {
+//        let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
+//        fetchRequest.predicate = predicate
+//        do {
+//            let fetchedTasks = try CoreDataStack.context.fetch(fetchRequest)
+//            return fetchedTasks
+//        } catch {
+//            print("Error")
+//            return []
+//        }
+//    }
 }

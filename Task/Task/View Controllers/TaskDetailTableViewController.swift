@@ -8,11 +8,12 @@
 
 import UIKit
 
-class TaskDetailTableViewController: UITableViewController {
+class TaskDetailTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate {
 
     var task: Task?
     var dueDateValue: Date?
     
+    @IBOutlet var tapGesture: UITapGestureRecognizer!
     @IBOutlet weak var taskNameTextField: UITextField!
     @IBOutlet weak var taskDueDateTextField: UITextField!
     @IBOutlet weak var notesTextView: UITextView!
@@ -20,12 +21,16 @@ class TaskDetailTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        notesTextView.delegate = self
+        taskNameTextField.delegate = self
+        taskDueDateTextField.delegate = self
+        self.tableView.addGestureRecognizer(tapGesture)
         taskDueDateTextField.inputView = dueDatePicker
         updateViews()
     }
 
     @IBAction func saveButtonTapped(_ sender: Any) {
-        guard let name = taskNameTextField.text, let notes = notesTextView.text, let due = taskDueDateTextField.text else { return }
+        guard let name = taskNameTextField.text, let notes = notesTextView.text else { return }
         if let saveTask = task {
             TaskController.sharedInstance.update(task: saveTask, name: name, notes: notes, due: dueDatePicker.date)
         } else {
@@ -44,9 +49,11 @@ class TaskDetailTableViewController: UITableViewController {
     }
     
     @IBAction func userTappedView(_ sender: Any) {
-        resignFirstResponder()
+        taskNameTextField.resignFirstResponder()
+        taskDueDateTextField.resignFirstResponder()
+        notesTextView.resignFirstResponder()
+        dueDatePicker.resignFirstResponder()
     }
-    
     
     // MARK: - Table view data source
     
